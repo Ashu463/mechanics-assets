@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mechanics — Direction 03 · Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Manrope:wght@300..700&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFBF9; --ink:#0A0A0C; --ink-2:#2F2F2F;
+  --grey:#606163; --grey-2:#858689;
+  --rule:rgba(10,10,12,.11); --rule-2:rgba(10,10,12,.22);
+  --lilac:#F9E3FE; --lime:#F8FDDA; --ice:#F2FFFF;
+  --display:'Instrument Sans',sans-serif; --body:'Manrope',sans-serif; --mono:'Fragment Mono',monospace;
+  --gut:clamp(20px,5vw,88px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;
+  line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+.mono{font-family:var(--mono);font-size:11px;color:var(--grey-2);letter-spacing:.01em}
+.h-sec{font-family:var(--display);font-weight:600;letter-spacing:-.035em;line-height:1.02;
+  font-size:clamp(32px,5vw,68px)}
+.lede{color:var(--grey);font-size:clamp(15px,1.25vw,18px);max-width:52ch;font-weight:400}
+section{padding-inline:var(--gut)}
+
+/* ---------- nav ---------- */
+nav{position:fixed;inset:0 0 auto;z-index:60;display:flex;align-items:center;
+  justify-content:space-between;padding:18px var(--gut);
+  background:rgba(251,251,249,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.brand{font-family:var(--display);font-weight:600;letter-spacing:-.045em;font-size:19px}
+.nlinks{display:flex;gap:26px}
+.nlinks a{font-family:var(--mono);font-size:11px;color:var(--grey);transition:color .25s}
+.nlinks a:hover{color:var(--ink)}
+@media(max-width:900px){.nlinks{display:none}}
+.btn{font-family:var(--mono);font-size:11px;padding:10px 18px;border:1px solid var(--rule-2);
+  border-radius:100px;transition:background .3s,color .3s,border-color .3s;display:inline-block}
+.btn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.solid:hover{background:transparent;color:var(--ink);border-color:var(--rule-2)}
+
+/* ---------- hero ---------- */
+header{padding:clamp(130px,17vw,190px) var(--gut) clamp(50px,7vw,84px)}
+.tagline{display:flex;gap:14px;align-items:center;margin-bottom:clamp(30px,4vw,46px)}
+.tagline i{display:block;width:44px;height:1px;background:var(--rule-2)}
+h1{font-family:var(--display);font-weight:600;letter-spacing:-.045em;line-height:1.0;
+  font-size:clamp(38px,7.4vw,112px);max-width:16ch}
+h1 em{font-style:italic;font-family:var(--mono);font-weight:400;font-size:.68em;
+  letter-spacing:-.01em;color:var(--grey)}
+.hero-foot{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(24px,5vw,72px);
+  align-items:end;margin-top:clamp(38px,5vw,66px)}
+@media(max-width:820px){.hero-foot{grid-template-columns:1fr;align-items:start}}
+.hero-act{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.tints{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.tint{width:clamp(72px,9vw,116px);aspect-ratio:3/4;border-radius:3px;
+  display:flex;align-items:flex-end;padding:11px;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.tint:hover{transform:translateY(-9px)}
+.tint span{font-family:var(--mono);font-size:9px;color:var(--ink-2);line-height:1.2}
+@media(max-width:820px){.tints{justify-content:flex-start}}
+
+/* ---------- SIGNATURE: contents index with dot leaders ---------- */
+.contents{padding-block:clamp(44px,6vw,80px);border-top:1px solid var(--rule-2)}
+.ct-row{display:grid;grid-template-columns:52px minmax(0,auto) 1fr auto;gap:16px;
+  align-items:baseline;padding:clamp(15px,1.8vw,22px) 0;border-bottom:1px solid var(--rule);
+  transition:background .3s,padding-left .35s;position:relative}
+.ct-row:hover{padding-left:12px}
+.ct-row:nth-child(1):hover{background:var(--lilac)}
+.ct-row:nth-child(2):hover{background:var(--lime)}
+.ct-row:nth-child(3):hover{background:var(--ice)}
+.ct-row:nth-child(4):hover{background:var(--lilac)}
+.ct-row:nth-child(5):hover{background:var(--lime)}
+.ct-row:nth-child(6):hover{background:var(--ice)}
+.ct-num{font-family:var(--mono);font-size:11px;color:var(--grey-2)}
+.ct-name{font-family:var(--display);font-weight:600;letter-spacing:-.03em;
+  font-size:clamp(21px,2.9vw,40px);line-height:1.05;white-space:nowrap}
+.ct-lead{border-bottom:1px dotted var(--rule-2);transform:translateY(-5px);min-width:20px}
+.ct-meta{font-family:var(--mono);font-size:11px;color:var(--grey);white-space:nowrap}
+@media(max-width:700px){
+  .ct-row{grid-template-columns:44px 1fr auto;gap:6px 12px}
+  .ct-lead{display:none}
+  .ct-name{white-space:normal}
+}
+
+/* ---------- generic section head ---------- */
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:clamp(24px,5vw,64px);
+  flex-wrap:wrap;padding-block:clamp(56px,8vw,110px) clamp(26px,3.5vw,44px)}
+
+/* ---------- roadmap ---------- */
+.rm-band{background:var(--ice);margin-inline:calc(-1*var(--gut));
+  padding:clamp(50px,7vw,96px) var(--gut)}
+.stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,215px),1fr));
+  gap:clamp(18px,2.4vw,34px);margin-top:clamp(30px,4vw,52px)}
+.stage{border-top:1px solid var(--rule-2);padding-top:18px}
+.stage h4{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.025em;
+  margin:12px 0 8px}
+.stage p{color:var(--grey);font-size:13.5px;line-height:1.5}
+.dots{display:flex;gap:4px;margin-top:18px}
+.dots i{width:6px;height:6px;border-radius:50%;background:var(--rule-2);display:block}
+.dots i.on{background:var(--ink)}
+
+/* ---------- journal ---------- */
+.jr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));
+  gap:clamp(22px,3vw,44px)}
+.card{display:block;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.card:hover{transform:translateY(-6px)}
+.card .thumb{aspect-ratio:4/3;border-radius:4px;margin-bottom:16px;position:relative;
+  overflow:hidden;display:grid;place-items:center}
+.card .thumb span{font-family:var(--mono);font-size:10px;color:var(--ink-2);
+  border:1px solid rgba(10,10,12,.16);padding:5px 10px;border-radius:100px;background:rgba(255,255,255,.6)}
+.card h3{font-family:var(--display);font-weight:600;font-size:clamp(17px,1.6vw,21px);
+  letter-spacing:-.028em;line-height:1.25;margin-bottom:8px}
+.card p{color:var(--grey);font-size:13.5px;line-height:1.5}
+.card .m{display:flex;justify-content:space-between;margin-top:12px}
+
+/* ---------- live ---------- */
+.live-band{background:var(--ink);color:var(--paper);margin-inline:calc(-1*var(--gut));
+  padding:clamp(52px,7vw,104px) var(--gut);border-radius:6px}
+.live-band .mono{color:rgba(251,251,249,.5)}
+.live-band .lede{color:rgba(251,251,249,.72)}
+.live-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(26px,4vw,60px);
+  align-items:start;margin-top:clamp(30px,4vw,50px)}
+@media(max-width:900px){.live-grid{grid-template-columns:1fr}}
+.stage-vw{aspect-ratio:16/10;border-radius:4px;background:#151517;position:relative;
+  display:grid;place-items:center;overflow:hidden;
+  background-image:radial-gradient(80% 70% at 50% 40%,#26262a 0%,#141416 70%)}
+.play{width:66px;height:66px;border-radius:50%;background:var(--paper);display:grid;
+  place-items:center;transition:transform .35s}
+.stage-vw:hover .play{transform:scale(1.09)}
+.play svg{width:15px;height:15px;fill:var(--ink);margin-left:3px}
+.air{position:absolute;top:18px;left:18px;font-family:var(--mono);font-size:10px;
+  display:flex;gap:8px;align-items:center;color:var(--paper)}
+.air i{width:6px;height:6px;border-radius:50%;background:#ff5540;animation:bl 1.6s infinite}
+@keyframes bl{50%{opacity:.2}}
+.slot{display:flex;justify-content:space-between;gap:16px;padding:14px 0;
+  border-bottom:1px solid rgba(251,251,249,.14)}
+.slot:first-of-type{border-top:1px solid rgba(251,251,249,.26)}
+.slot p{font-size:14px;max-width:26ch;line-height:1.4}
+.live-band .btn{border-color:rgba(251,251,249,.3);color:var(--paper)}
+.live-band .btn:hover{background:var(--paper);color:var(--ink)}
+
+/* ---------- community ---------- */
+.cm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));
+  gap:clamp(18px,2.4vw,32px);margin-top:clamp(28px,4vw,48px)}
+.cm-card{padding:26px 22px 30px;border-radius:4px;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.cm-card:hover{transform:translateY(-6px)}
+.cm-card:nth-child(1){background:var(--lilac)}
+.cm-card:nth-child(2){background:var(--lime)}
+.cm-card:nth-child(3){background:var(--ice)}
+.cm-card:nth-child(4){background:#F0F0EE}
+.cm-card h4{font-family:var(--display);font-weight:600;font-size:19px;
+  letter-spacing:-.025em;margin:12px 0 8px}
+.cm-card p{color:var(--ink-2);font-size:13.5px;line-height:1.5;opacity:.75}
+.cm-card .mono{color:rgba(10,10,12,.45)}
+
+/* ---------- footer ---------- */
+footer{padding:clamp(60px,8vw,120px) var(--gut) 34px;border-top:1px solid var(--rule-2);
+  margin-top:clamp(56px,8vw,112px)}
+.fmail{font-family:var(--display);font-weight:600;letter-spacing:-.045em;
+  font-size:clamp(27px,5.8vw,86px);line-height:1;display:inline-block;transition:color .3s}
+.fmail:hover{color:var(--grey)}
+.fcols{display:flex;justify-content:space-between;gap:36px;flex-wrap:wrap;
+  margin-top:clamp(40px,6vw,78px);padding-top:24px;border-top:1px solid var(--rule)}
+.fcol{display:flex;flex-direction:column;gap:9px}
+.fcol a{font-size:14px;color:var(--grey);transition:color .25s}
+.fcol a:hover{color:var(--ink)}
+.fbase{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  margin-top:44px;padding-top:16px;border-top:1px solid var(--rule)}
+
+/* entrance */
+.rise{opacity:0;transform:translateY(16px)}
+.rise.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01ms!important}
+  .rise{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="brand">Mechanics</a>
+  <div class="nlinks">
+    <a href="#dept">Departments</a><a href="#rm">Roadmaps</a>
+    <a href="#jr">Journal</a><a href="#live">Live</a><a href="#cm">Community</a>
+  </div>
+  <a href="#" class="btn solid">Join the hub</a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header>
+  <p class="tagline"><span class="mono">Mechanics — Learning Hub</span><i></i><span class="mono">Ed. 01 / 2026</span></p>
+  <h1>A structured way into <em>hard</em> engineering.</h1>
+  <div class="hero-foot">
+    <div>
+      <p class="lede">For student engineers in automotive, motorsports, aerospace, robotics and mechatronics. Dependency-mapped roadmaps, weekday design reviews, and a community that critiques your project properly.</p>
+      <div class="hero-act">
+        <a href="#dept" class="btn solid">Open the index</a>
+        <a href="#live" class="btn">Watch tonight's review</a>
+      </div>
+    </div>
+    <div class="tints" aria-hidden="true">
+      <div class="tint" style="background:var(--lilac)"><span>ROBOTICS<br>27 modules</span></div>
+      <div class="tint" style="background:var(--lime)"><span>MOTORSPORT<br>31 modules</span></div>
+      <div class="tint" style="background:var(--ice)"><span>AEROSPACE<br>19 modules</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SIGNATURE: CONTENTS INDEX ============ -->
+<section id="dept">
+  <div class="contents">
+    <a class="ct-row" href="#">
+      <span class="ct-num">01</span><span class="ct-name">Automotive</span>
+      <span class="ct-lead"></span><span class="ct-meta">Powertrain · Chassis · Dynamics — 24</span>
+    </a>
+    <a class="ct-row" href="#">
+      <span class="ct-num">02</span><span class="ct-name">Motorsports</span>
+      <span class="ct-lead"></span><span class="ct-meta">FSAE · Aero · Strategy — 31</span>
+    </a>
+    <a class="ct-row" href="#">
+      <span class="ct-num">03</span><span class="ct-name">Aerospace &amp; Aviation</span>
+      <span class="ct-lead"></span><span class="ct-meta">Propulsion · Structures — 19</span>
+    </a>
+    <a class="ct-row" href="#">
+      <span class="ct-num">04</span><span class="ct-name">Robotics</span>
+      <span class="ct-lead"></span><span class="ct-meta">Kinematics · Control · ROS 2 — 27</span>
+    </a>
+    <a class="ct-row" href="#">
+      <span class="ct-num">05</span><span class="ct-name">Mechatronics</span>
+      <span class="ct-lead"></span><span class="ct-meta">Embedded · Sensors · PCB — 22</span>
+    </a>
+    <a class="ct-row" href="#">
+      <span class="ct-num">06</span><span class="ct-name">Software &amp; CAD</span>
+      <span class="ct-lead"></span><span class="ct-meta">SolidWorks · ANSYS · MATLAB — 35</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ ROADMAPS ============ -->
+<section id="rm">
+  <div class="rm-band">
+    <div class="shead" style="padding-top:0">
+      <div>
+        <p class="mono" style="margin-bottom:16px">Roadmaps</p>
+        <h2 class="h-sec">Nothing unlocks until<br>the thing beneath it holds.</h2>
+      </div>
+      <p class="lede" style="max-width:34ch">Skill trees with real dependencies. Tick a node when you can do it unaided — your progress follows your account.</p>
+    </div>
+    <div class="stages">
+      <div class="stage">
+        <p class="mono">Stage 01 — Fundamentals</p>
+        <h4>Statics &amp; materials</h4>
+        <p>Free-body diagrams, stress–strain behaviour, failure criteria.</p>
+        <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+      </div>
+      <div class="stage">
+        <p class="mono">Stage 02 — Tooling</p>
+        <h4>Parametric CAD</h4>
+        <p>Sketch discipline, feature trees that survive an edit, readable GD&amp;T.</p>
+        <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+      </div>
+      <div class="stage">
+        <p class="mono">Stage 03 — Analysis</p>
+        <h4>FEA &amp; CFD</h4>
+        <p>Meshing, boundary conditions, and validating the result against something real.</p>
+        <div class="dots"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="stage">
+        <p class="mono">Stage 04 — Application</p>
+        <h4>Vehicle dynamics</h4>
+        <p>Load transfer, roll centres, tyre data, damper tuning.</p>
+        <div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNAL ============ -->
+<section id="jr">
+  <div class="shead">
+    <div>
+      <p class="mono" style="margin-bottom:16px">Journal</p>
+      <h2 class="h-sec">News, teardowns<br>and working notes.</h2>
+    </div>
+    <a href="#" class="btn">All entries</a>
+  </div>
+  <div class="jr-grid">
+    <a class="card rise" href="#">
+      <div class="thumb" style="background:var(--lime)"><span>Motorsports</span></div>
+      <h3>Why FSAE teams keep getting anti-dive geometry wrong</h3>
+      <p>The instant-centre shortcut most teams copy, and what it costs you under braking.</p>
+      <div class="m"><span class="mono">18.07.26</span><span class="mono">6 min</span></div>
+    </a>
+    <a class="card rise" href="#">
+      <div class="thumb" style="background:var(--ice)"><span>Aerospace</span></div>
+      <h3>Reading a wind tunnel run: what C<sub>L</sub>/C<sub>D</sub> actually tells you</h3>
+      <p>Coefficients are a ratio, not a verdict. How to interpret a sweep without fooling yourself.</p>
+      <div class="m"><span class="mono">11.07.26</span><span class="mono">9 min</span></div>
+    </a>
+    <a class="card rise" href="#">
+      <div class="thumb" style="background:var(--lilac)"><span>IPR</span></div>
+      <h3>Filing a provisional patent from an Indian college lab</h3>
+      <p>Forms, fees, timelines, and what your institute's TTO will and will not do for you.</p>
+      <div class="m"><span class="mono">02.07.26</span><span class="mono">12 min</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ LIVE ============ -->
+<section id="live">
+  <div class="live-band">
+    <div class="shead" style="padding-top:0;padding-bottom:0">
+      <div>
+        <p class="mono" style="margin-bottom:16px">Live</p>
+        <h2 class="h-sec">Design reviews,<br>five nights a week.</h2>
+      </div>
+      <p class="lede" style="max-width:32ch">Bring your assembly. Somebody who has shipped one will tell you what is wrong with it.</p>
+    </div>
+    <div class="live-grid">
+      <div class="stage-vw">
+        <span class="air"><i></i>LIVE · TUE 20:30 IST</span>
+        <span class="play"><svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5z"/></svg></span>
+      </div>
+      <div>
+        <p class="mono" style="margin-bottom:14px">Upcoming this week</p>
+        <div class="slot"><p>Monocoque layup schedule — with IIT Bombay Racing</p><span class="mono">TUE 20:30</span></div>
+        <div class="slot"><p>Meshing a manifold without lying to yourself</p><span class="mono">WED 20:30</span></div>
+        <div class="slot"><p>Open floor — bring a drawing, get it torn apart</p><span class="mono">THU 21:00</span></div>
+        <div class="slot"><p>Guest — patent drafting for student inventors</p><span class="mono">FRI 19:00</span></div>
+        <div style="margin-top:24px"><a href="#" class="btn">Full schedule</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMUNITY ============ -->
+<section id="cm">
+  <div class="shead">
+    <div>
+      <p class="mono" style="margin-bottom:16px">Community</p>
+      <h2 class="h-sec">Post the project.<br>Take the criticism.</h2>
+    </div>
+    <p class="lede" style="max-width:34ch">Threads for work in progress, plus the guidance nobody hands you: how to file, and how to publish.</p>
+  </div>
+  <div class="cm-grid">
+    <div class="cm-card"><p class="mono">Projects</p><h4>Build threads</h4>
+      <p>Post the assembly, the analysis and the failure. Answers come from people on other teams hitting the same wall.</p></div>
+    <div class="cm-card"><p class="mono">IPR</p><h4>Patents &amp; filing</h4>
+      <p>Provisional versus complete, what your college TTO actually does, and the timeline you are already behind on.</p></div>
+    <div class="cm-card"><p class="mono">Research</p><h4>Writing papers</h4>
+      <p>Structure, choosing a venue, and surviving reviewer two — with worked examples from published students.</p></div>
+    <div class="cm-card"><p class="mono">Teams</p><h4>Cross-university</h4>
+      <p>FSAE, Baja, Aero Design and Robocon teams comparing notes across 41 universities in India and abroad.</p></div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <p class="mono" style="margin-bottom:16px">Start something</p>
+  <a href="mailto:hello@mechanics.dev" class="fmail">hello@mechanics.dev</a>
+  <div class="fcols">
+    <div class="fcol"><span class="mono">Learn</span>
+      <a href="#dept">Departments</a><a href="#rm">Roadmaps</a><a href="#">Software &amp; CAD</a></div>
+    <div class="fcol"><span class="mono">Read</span>
+      <a href="#jr">Journal</a><a href="#">News</a><a href="#">Reviews — soon</a></div>
+    <div class="fcol"><span class="mono">Take part</span>
+      <a href="#live">Live</a><a href="#cm">Community</a><a href="#">Webinars — soon</a></div>
+    <div class="fcol"><span class="mono">Elsewhere</span>
+      <a href="#">YouTube</a><a href="#">Instagram</a><a href="#">LinkedIn</a></div>
+  </div>
+  <div class="fbase">
+    <span class="mono">Mechanics — Learning Hub</span>
+    <span class="mono">Edition 01</span>
+    <span class="mono">© 2026</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if(!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.rise').forEach(function(e){e.classList.add('in')});
+    return;
+  }
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e,i){
+      if(e.isIntersecting){
+        e.target.style.transitionDelay=(i*0.09)+'s';
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.15});
+  document.querySelectorAll('.rise').forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
