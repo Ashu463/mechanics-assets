@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mechanics — Direction 01 · Spec Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,100..900&family=Inter+Tight:wght@300..700&family=Geist+Mono:wght@300..600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --base:#000; --elevated:#111; --raised:#191919;
+  --text:#fff; --text-2:rgba(255,255,255,.85); --text-3:rgba(255,255,255,.50);
+  --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.16);
+  --accent:#D1E1E8; --inverse:#F7F7F7;
+  --display:'Archivo',sans-serif; --body:'Inter Tight',sans-serif; --mono:'Geist Mono',monospace;
+  --gut:clamp(20px,4vw,64px);
+  --block-h:44px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--base);color:var(--text);font-family:var(--body);
+  font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  padding-bottom:var(--block-h);overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ---------- shared type ---------- */
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.display{font-family:var(--display);font-variation-settings:'wdth' 92,'wght' 800;letter-spacing:-.035em;line-height:.92}
+.h-sec{font-family:var(--display);font-variation-settings:'wdth' 92,'wght' 800;letter-spacing:-.03em;line-height:.95;font-size:clamp(38px,6vw,88px)}
+.lede{color:var(--text-2);font-size:clamp(15px,1.35vw,19px);max-width:56ch;line-height:1.55}
+
+.wrap{padding-inline:var(--gut)}
+section{position:relative}
+
+/* ---------- meta strip (section divider) ---------- */
+.meta{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:14px var(--gut);border-block:1px solid var(--line);gap:16px;
+}
+.meta span:last-child{text-align:right}
+
+/* ---------- nav ---------- */
+.nav{
+  position:fixed;inset:0 0 auto;z-index:60;display:flex;justify-content:space-between;
+  align-items:center;padding:18px var(--gut);
+  backdrop-filter:blur(14px);background:linear-gradient(#000000cc,#00000000);
+}
+.brand{font-family:var(--display);font-variation-settings:'wdth' 88,'wght' 900;
+  letter-spacing:-.04em;font-size:19px;display:flex;align-items:center;gap:9px}
+.brand i{width:11px;height:11px;background:var(--accent);display:block;
+  clip-path:polygon(50% 0,100% 100%,0 100%);font-style:normal}
+.nav-links{display:flex;gap:26px}
+.nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-2);display:flex;gap:3px;transition:color .25s}
+.nav-links a:hover{color:var(--accent)}
+.nav-links sup{font-size:8px;color:var(--text-3)}
+@media(max-width:820px){.nav-links{display:none}}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:120px var(--gut) 48px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(120% 80% at 78% 8%, #1c2a31 0%, #0a0e10 42%, #000 76%);
+  clip-path:polygon(0 0,100% 0,100% 88%,0 100%);
+}
+.hero-bg::after{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:100% 84px, 84px 100%;
+  mask-image:radial-gradient(120% 80% at 78% 8%,#000 0%,transparent 68%);
+  opacity:.5;
+}
+.hero-in{position:relative;z-index:1;width:100%}
+.hero h1{font-size:clamp(46px,10.5vw,168px);max-width:15ch;margin-bottom:34px}
+.hero h1 em{font-style:normal;color:var(--accent);
+  font-variation-settings:'wdth' 78,'wght' 500}
+.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;
+  gap:40px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}
+.cta{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--line-2);padding:13px 20px;border-radius:2px;
+  transition:background .3s,color .3s,border-color .3s}
+.cta:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+.cta svg{width:12px;height:12px}
+.hero-stats{display:flex;gap:clamp(24px,4vw,56px)}
+.hero-stats div span{display:block}
+.hero-stats b{font-family:var(--display);font-variation-settings:'wdth' 88,'wght' 700;
+  font-size:clamp(24px,2.6vw,36px);letter-spacing:-.03em;line-height:1}
+
+/* ---------- section head ---------- */
+.head{padding:clamp(64px,9vw,130px) var(--gut) clamp(30px,4vw,52px);
+  display:grid;grid-template-columns:1fr;gap:22px}
+.head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+
+/* ---------- departments : BOM table + sticky stack ---------- */
+.bom{padding-inline:var(--gut);padding-bottom:clamp(60px,8vw,110px)}
+.bom-head{display:grid;grid-template-columns:56px 1.15fr 1fr 96px;gap:20px;
+  padding-bottom:11px;border-bottom:1px solid var(--line-2)}
+.dept{
+  display:grid;grid-template-columns:56px 1.15fr 1fr 96px;gap:20px;align-items:center;
+  padding:24px 0;border-bottom:1px solid var(--line);
+  position:sticky;top:74px;background:var(--base);
+  transition:background .35s,padding-left .35s;
+}
+.dept:hover{background:var(--elevated);padding-left:14px}
+.dept-id{font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.dept-name{font-family:var(--display);font-variation-settings:'wdth' 90,'wght' 700;
+  font-size:clamp(21px,2.5vw,34px);letter-spacing:-.03em;line-height:1.05}
+.dept-desc{color:var(--text-3);font-size:14px;line-height:1.45}
+.dept-n{font-family:var(--mono);font-size:11px;color:var(--accent);text-align:right}
+@media(max-width:760px){
+  .bom-head{display:none}
+  .dept{grid-template-columns:44px 1fr;gap:8px 14px;position:static;padding:20px 0}
+  .dept-desc{grid-column:2}
+  .dept-n{grid-column:2;text-align:left}
+}
+
+/* ---------- roadmap ---------- */
+.rm{background:var(--elevated);padding:clamp(60px,8vw,110px) var(--gut);
+  border-block:1px solid var(--line)}
+.rm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);margin-top:44px}
+.node{background:var(--elevated);padding:26px 22px 30px;position:relative;
+  transition:background .3s}
+.node:hover{background:var(--raised)}
+.node-step{font-family:var(--mono);font-size:10px;color:var(--accent);
+  letter-spacing:.1em;display:block;margin-bottom:16px}
+.node h4{font-family:var(--display);font-variation-settings:'wdth' 92,'wght' 700;
+  font-size:19px;letter-spacing:-.02em;margin-bottom:9px}
+.node p{color:var(--text-3);font-size:13.5px;line-height:1.5}
+.node-bar{height:2px;background:var(--line-2);margin-top:20px;position:relative}
+.node-bar i{position:absolute;inset:0 auto 0 0;background:var(--accent);display:block}
+
+/* ---------- journal ---------- */
+.jr{padding:0 var(--gut) clamp(60px,8vw,110px)}
+.jr-list{border-top:1px solid var(--line-2)}
+.jr-item{display:grid;grid-template-columns:96px 1fr 130px;gap:24px;align-items:baseline;
+  padding:26px 0;border-bottom:1px solid var(--line);transition:padding-left .35s}
+.jr-item:hover{padding-left:14px}
+.jr-item:hover h3{color:var(--accent)}
+.jr-item h3{font-family:var(--display);font-variation-settings:'wdth' 92,'wght' 600;
+  font-size:clamp(17px,2vw,26px);letter-spacing:-.025em;line-height:1.2;
+  transition:color .3s;max-width:34ch}
+.jr-tag{font-family:var(--mono);font-size:10px;color:var(--text-3);text-align:right}
+@media(max-width:700px){
+  .jr-item{grid-template-columns:1fr;gap:9px}
+  .jr-tag{text-align:left}
+}
+
+/* ---------- live ---------- */
+.live{padding:0 var(--gut) clamp(60px,8vw,110px);display:grid;
+  grid-template-columns:1.4fr 1fr;gap:clamp(24px,4vw,56px);align-items:start}
+@media(max-width:900px){.live{grid-template-columns:1fr}}
+.screen{aspect-ratio:16/10;background:var(--elevated);border:1px solid var(--line-2);
+  position:relative;display:grid;place-items:center;overflow:hidden}
+.screen::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:100% 40px,40px 100%;opacity:.6}
+.play{position:relative;width:74px;height:74px;border-radius:50%;
+  border:1px solid var(--line-2);display:grid;place-items:center;background:#0009;
+  transition:background .3s,border-color .3s}
+.screen:hover .play{background:var(--accent);border-color:var(--accent)}
+.play svg{width:17px;height:17px;fill:var(--text);margin-left:3px;transition:fill .3s}
+.screen:hover .play svg{fill:#000}
+.on-air{position:absolute;top:16px;left:16px;display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--text)}
+.on-air i{width:7px;height:7px;border-radius:50%;background:#ff4436;
+  animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+.sched{border-top:1px solid var(--line-2)}
+.sched-row{display:flex;justify-content:space-between;gap:16px;padding:16px 0;
+  border-bottom:1px solid var(--line)}
+.sched-row p{font-size:14px;line-height:1.4;max-width:28ch}
+.sched-row .mono{white-space:nowrap}
+
+/* ---------- community ---------- */
+.cm{background:var(--inverse);color:#000;padding:clamp(60px,8vw,110px) var(--gut)}
+.cm .mono{color:#0009}
+.cm h2{color:#000}
+.cm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
+  gap:1px;background:#0000001a;border:1px solid #0000001a;margin-top:44px}
+.cm-card{background:var(--inverse);padding:28px 24px 34px;transition:background .3s}
+.cm-card:hover{background:#fff}
+.cm-card h4{font-family:var(--display);font-variation-settings:'wdth' 92,'wght' 700;
+  font-size:20px;letter-spacing:-.025em;margin:14px 0 9px}
+.cm-card p{color:#00000099;font-size:14px;line-height:1.5}
+.cm-card .mono{color:#0000006b}
+
+/* ---------- footer ---------- */
+.ft{padding:clamp(60px,8vw,110px) var(--gut) 40px}
+.ft-mail{font-family:var(--display);font-variation-settings:'wdth' 88,'wght' 800;
+  font-size:clamp(30px,6.4vw,90px);letter-spacing:-.04em;line-height:.95;
+  display:inline-block;transition:color .3s}
+.ft-mail:hover{color:var(--accent)}
+.ft-cols{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;
+  margin-top:clamp(40px,6vw,80px);padding-top:24px;border-top:1px solid var(--line)}
+.ft-col{display:flex;flex-direction:column;gap:9px}
+.ft-col a{font-size:14px;color:var(--text-3);transition:color .3s}
+.ft-col a:hover{color:var(--text)}
+
+/* ---------- SIGNATURE: drawing title block ---------- */
+.tblock{
+  position:fixed;inset:auto 0 0 0;z-index:70;height:var(--block-h);
+  display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;
+  gap:0;background:#000;border-top:1px solid var(--line-2);
+  font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+}
+.tb{padding:0 16px;height:100%;display:flex;align-items:center;gap:9px;
+  border-right:1px solid var(--line);color:var(--text-3);white-space:nowrap}
+.tb:last-child{border-right:0}
+.tb b{color:var(--text);font-weight:400}
+.tb-sheet b{color:var(--accent)}
+.tb-title{overflow:hidden;text-overflow:ellipsis}
+.tb-prog{width:120px;padding-inline:16px}
+.tb-prog span{display:block;width:100%;height:2px;background:var(--line-2);position:relative}
+.tb-prog i{position:absolute;inset:0 auto 0 0;background:var(--accent);width:0}
+@media(max-width:760px){.tb-scale,.tb-prog{display:none}}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .dept{position:static}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#" class="brand"><i></i>MECHANICS</a>
+  <div class="nav-links">
+    <a href="#dept">Departments<sup>01</sup></a>
+    <a href="#roadmap">Roadmaps<sup>02</sup></a>
+    <a href="#journal">Journal<sup>03</sup></a>
+    <a href="#live">Live<sup>04</sup></a>
+    <a href="#community">Community<sup>05</sup></a>
+  </div>
+  <a href="#" class="cta">Join<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 10 10 2M4 2h6v6"/></svg></a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-in">
+    <h1 class="display">Learn the machine <em>before</em> you build it.</h1>
+    <div class="hero-foot">
+      <div>
+        <p class="lede">A learning hub for student engineers in automotive, motorsports, aerospace, robotics and mechatronics. Structured roadmaps, weekday design reviews, and a community that critiques your project properly.</p>
+        <div style="margin-top:26px"><a href="#dept" class="cta">Start with a department<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 10 10 2M4 2h6v6"/></svg></a></div>
+      </div>
+      <div class="hero-stats">
+        <div><b>06</b><span class="mono">Departments</span></div>
+        <div><b>41</b><span class="mono">Universities</span></div>
+        <div><b>5×</b><span class="mono">Streams / week</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ DEPARTMENTS ============ -->
+<div class="meta" data-sheet="01" data-title="Departments">
+  <span class="mono">(01)</span><span class="mono">Departments</span><span class="mono">© 2026</span>
+</div>
+
+<section id="dept">
+  <div class="head">
+    <div class="head-row">
+      <h2 class="h-sec">Six departments.<br>One shared vocabulary.</h2>
+      <p class="lede" style="max-width:38ch">Every department is a bill of materials: the sub-disciplines you need, what each is for, and where it sits in the build.</p>
+    </div>
+  </div>
+
+  <div class="bom">
+    <div class="bom-head">
+      <span class="mono">Item</span><span class="mono">Department</span>
+      <span class="mono">Scope</span><span class="mono" style="text-align:right">Modules</span>
+    </div>
+
+    <a class="dept" href="#">
+      <span class="dept-id">A-01</span>
+      <h3 class="dept-name">Automotive</h3>
+      <p class="dept-desc">Powertrain, chassis, vehicle dynamics, NVH, and the tolerances that decide whether any of it works.</p>
+      <span class="dept-n">24 →</span>
+    </a>
+    <a class="dept" href="#">
+      <span class="dept-id">M-02</span>
+      <h3 class="dept-name">Motorsports</h3>
+      <p class="dept-desc">FSAE and Baja engineering — suspension kinematics, aero maps, race strategy, scrutineering.</p>
+      <span class="dept-n">31 →</span>
+    </a>
+    <a class="dept" href="#">
+      <span class="dept-id">A-03</span>
+      <h3 class="dept-name">Aerospace &amp; Aviation</h3>
+      <p class="dept-desc">Propulsion, airframe structures, flight mechanics, and certification thinking from day one.</p>
+      <span class="dept-n">19 →</span>
+    </a>
+    <a class="dept" href="#">
+      <span class="dept-id">R-04</span>
+      <h3 class="dept-name">Robotics</h3>
+      <p class="dept-desc">Forward and inverse kinematics, actuation, control loops, ROS 2, and manipulator design.</p>
+      <span class="dept-n">27 →</span>
+    </a>
+    <a class="dept" href="#">
+      <span class="dept-id">X-05</span>
+      <h3 class="dept-name">Mechatronics</h3>
+      <p class="dept-desc">Where the wiring meets the metal — embedded firmware, sensors, PCB layout, motor control.</p>
+      <span class="dept-n">22 →</span>
+    </a>
+    <a class="dept" href="#">
+      <span class="dept-id">S-06</span>
+      <h3 class="dept-name">Software &amp; CAD</h3>
+      <p class="dept-desc">SolidWorks, CATIA, Fusion 360, ANSYS, MATLAB, KiCad — taught as a working pipeline, not menus.</p>
+      <span class="dept-n">35 →</span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ ROADMAPS ============ -->
+<div class="meta" data-sheet="02" data-title="Roadmaps">
+  <span class="mono">(02)</span><span class="mono">Roadmaps</span><span class="mono">© 2026</span>
+</div>
+
+<section id="roadmap" class="rm">
+  <div class="head-row">
+    <h2 class="h-sec">The route from<br>first year to hire-ready.</h2>
+    <p class="lede" style="max-width:38ch">Dependency-mapped skill trees. Tick a node when you can actually do it — progress follows your account.</p>
+  </div>
+
+  <div class="rm-grid">
+    <div class="node">
+      <span class="node-step">Stage 01 · Fundamentals</span>
+      <h4>Statics &amp; Materials</h4>
+      <p>Free-body diagrams, stress–strain, failure criteria. Nothing downstream works without this.</p>
+      <div class="node-bar"><i style="width:100%"></i></div>
+    </div>
+    <div class="node">
+      <span class="node-step">Stage 02 · Tooling</span>
+      <h4>Parametric CAD</h4>
+      <p>Sketch discipline, feature trees that survive edits, GD&amp;T that a machinist can read.</p>
+      <div class="node-bar"><i style="width:72%"></i></div>
+    </div>
+    <div class="node">
+      <span class="node-step">Stage 03 · Analysis</span>
+      <h4>FEA &amp; CFD</h4>
+      <p>Meshing, boundary conditions, and — the part everyone skips — validating the result.</p>
+      <div class="node-bar"><i style="width:38%"></i></div>
+    </div>
+    <div class="node">
+      <span class="node-step">Stage 04 · Application</span>
+      <h4>Vehicle Dynamics</h4>
+      <p>Load transfer, roll centres, tyre data, damper tuning. Where the maths meets the lap time.</p>
+      <div class="node-bar"><i style="width:9%"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNAL ============ -->
+<div class="meta" data-sheet="03" data-title="Journal">
+  <span class="mono">(03)</span><span class="mono">Journal</span><span class="mono">© 2026</span>
+</div>
+
+<section id="journal">
+  <div class="head">
+    <div class="head-row">
+      <h2 class="h-sec">Journal</h2>
+      <p class="lede" style="max-width:38ch">News, teardowns and working notes. Written by engineers who have built the thing.</p>
+    </div>
+  </div>
+  <div class="jr">
+    <div class="jr-list">
+      <a class="jr-item" href="#">
+        <span class="mono">18.07.26</span>
+        <h3>Why FSAE teams keep getting anti-dive geometry wrong</h3>
+        <span class="jr-tag">Motorsports</span>
+      </a>
+      <a class="jr-item" href="#">
+        <span class="mono">11.07.26</span>
+        <h3>Reading a wind tunnel run: what C<sub>L</sub>/C<sub>D</sub> actually tells you</h3>
+        <span class="jr-tag">Aerospace</span>
+      </a>
+      <a class="jr-item" href="#">
+        <span class="mono">02.07.26</span>
+        <h3>Filing a provisional patent from an Indian college lab</h3>
+        <span class="jr-tag">IPR</span>
+      </a>
+      <a class="jr-item" href="#">
+        <span class="mono">24.06.26</span>
+        <h3>Functional PETG on the Bambu X1C: the settings that survive load</h3>
+        <span class="jr-tag">Manufacturing</span>
+      </a>
+      <a class="jr-item" href="#">
+        <span class="mono">15.06.26</span>
+        <h3>A feature tree that survives the third design review</h3>
+        <span class="jr-tag">Software &amp; CAD</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIVE ============ -->
+<div class="meta" data-sheet="04" data-title="Live">
+  <span class="mono">(04)</span><span class="mono">Live</span><span class="mono">© 2026</span>
+</div>
+
+<section id="live">
+  <div class="head">
+    <div class="head-row">
+      <h2 class="h-sec">Design reviews,<br>five nights a week.</h2>
+      <p class="lede" style="max-width:38ch">Bring your assembly. Somebody who has shipped one will tell you what is wrong with it.</p>
+    </div>
+  </div>
+  <div class="live">
+    <div class="screen">
+      <span class="on-air"><i></i>Live · Tue 20:30 IST</span>
+      <span class="play"><svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5z"/></svg></span>
+    </div>
+    <div>
+      <div class="mono" style="margin-bottom:14px">Upcoming</div>
+      <div class="sched">
+        <div class="sched-row">
+          <p>Monocoque layup schedule — review with IIT Bombay Racing</p>
+          <span class="mono">Tue 20:30</span>
+        </div>
+        <div class="sched-row">
+          <p>Meshing a manifold without lying to yourself</p>
+          <span class="mono">Wed 20:30</span>
+        </div>
+        <div class="sched-row">
+          <p>Open floor: bring a drawing, get it torn apart</p>
+          <span class="mono">Thu 21:00</span>
+        </div>
+        <div class="sched-row">
+          <p>Guest — patent drafting for student inventors</p>
+          <span class="mono">Fri 19:00</span>
+        </div>
+      </div>
+      <div style="margin-top:26px"><a href="#" class="cta">Full schedule<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 10 10 2M4 2h6v6"/></svg></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMUNITY ============ -->
+<div class="meta" data-sheet="05" data-title="Community">
+  <span class="mono">(05)</span><span class="mono">Community</span><span class="mono">© 2026</span>
+</div>
+
+<section id="community" class="cm">
+  <div class="head-row">
+    <h2 class="h-sec">Post the project.<br>Take the criticism.</h2>
+    <p class="lede" style="max-width:38ch;color:#00000099">Threads for real work in progress, plus the guidance nobody gives you: how to file, and how to publish.</p>
+  </div>
+  <div class="cm-grid">
+    <div class="cm-card">
+      <span class="mono">Projects</span>
+      <h4>Build threads</h4>
+      <p>Post the assembly, the analysis and the failure. Get answers from people on other teams solving the same problem.</p>
+    </div>
+    <div class="cm-card">
+      <span class="mono">IPR</span>
+      <h4>Patents &amp; filing</h4>
+      <p>Provisional versus complete, what your college TTO actually does, and the timeline you are already behind on.</p>
+    </div>
+    <div class="cm-card">
+      <span class="mono">Research</span>
+      <h4>Writing papers</h4>
+      <p>Structuring a paper, choosing a venue, and surviving reviewer two — with worked examples from published students.</p>
+    </div>
+    <div class="cm-card">
+      <span class="mono">Teams</span>
+      <h4>Cross-university</h4>
+      <p>FSAE, Baja, Aero Design and Robocon teams comparing notes across 41 universities in India and abroad.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<div class="meta" data-sheet="06" data-title="Contact">
+  <span class="mono">(06)</span><span class="mono">Contact</span><span class="mono">© 2026</span>
+</div>
+
+<footer class="ft">
+  <p class="mono" style="margin-bottom:18px">Start something</p>
+  <a href="mailto:hello@mechanics.dev" class="ft-mail">hello@mechanics.dev</a>
+  <div class="ft-cols">
+    <div class="ft-col">
+      <span class="mono">Learn</span>
+      <a href="#dept">Departments</a><a href="#roadmap">Roadmaps</a><a href="#">Software &amp; CAD</a>
+    </div>
+    <div class="ft-col">
+      <span class="mono">Read</span>
+      <a href="#journal">Journal</a><a href="#">News</a><a href="#">Reviews — soon</a>
+    </div>
+    <div class="ft-col">
+      <span class="mono">Take part</span>
+      <a href="#live">Live</a><a href="#community">Community</a><a href="#">Webinars — soon</a>
+    </div>
+    <div class="ft-col">
+      <span class="mono">Elsewhere</span>
+      <a href="#">YouTube</a><a href="#">Instagram</a><a href="#">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ SIGNATURE: DRAWING TITLE BLOCK ============ -->
+<div class="tblock" aria-hidden="true">
+  <span class="tb tb-sheet">Sheet <b id="tbSheet">00</b> / 06</span>
+  <span class="tb tb-title">Section <b id="tbTitle">Cover</b></span>
+  <span class="tb tb-scale">Scale 1:1 · Rev 2.1</span>
+  <span class="tb tb-prog"><span><i id="tbProg"></i></span></span>
+</div>
+
+<script>
+(function(){
+  var sheet=document.getElementById('tbSheet'),
+      title=document.getElementById('tbTitle'),
+      prog=document.getElementById('tbProg'),
+      marks=[].slice.call(document.querySelectorAll('.meta[data-sheet]')),
+      ticking=false;
+
+  function update(){
+    ticking=false;
+    var y=window.scrollY+window.innerHeight*0.5, cur=null;
+    for(var i=0;i<marks.length;i++){
+      if(marks[i].offsetTop<=y) cur=marks[i];
+    }
+    sheet.textContent=cur?cur.dataset.sheet:'00';
+    title.textContent=cur?cur.dataset.title:'Cover';
+    var max=document.body.scrollHeight-window.innerHeight;
+    prog.style.width=(max>0?(window.scrollY/max*100):0)+'%';
+  }
+  addEventListener('scroll',function(){
+    if(!ticking){ticking=true;requestAnimationFrame(update);}
+  },{passive:true});
+  addEventListener('resize',update);
+  update();
+})();
+</script>
+</body>
+</html>
