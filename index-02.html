@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mechanics — Direction 02 · Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --base:#06090B; --elevated:#0C1216; --raised:#121A1F;
+  --text:#EAF2F5; --text-2:rgba(234,242,245,.78); --text-3:rgba(234,242,245,.44);
+  --line:rgba(209,225,232,.11); --line-2:rgba(209,225,232,.22);
+  --draft:#D1E1E8;                 /* drafting line — the only accent */
+  --gut:clamp(20px,4vw,68px);
+  --display:'Geist',sans-serif; --body:'Geist',sans-serif; --mono:'Fragment Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--base);color:var(--text);font-family:var(--body);font-size:16px;
+  line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;
+}
+/* persistent blueprint grid across the whole document */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(209,225,232,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(209,225,232,.055) 1px,transparent 1px),
+    linear-gradient(rgba(209,225,232,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(209,225,232,.028) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,24px 24px,24px 24px;
+}
+main,nav,footer{position:relative;z-index:1}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:1px solid var(--draft);outline-offset:4px}
+
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--text-3)}
+.tick{font-family:var(--mono);font-size:10px;color:var(--draft);letter-spacing:.02em}
+.h-sec{font-family:var(--display);font-weight:600;letter-spacing:-.035em;line-height:1;
+  font-size:clamp(34px,5.4vw,74px)}
+.lede{color:var(--text-2);font-size:clamp(15px,1.3vw,18px);max-width:54ch}
+.wrap{padding-inline:var(--gut)}
+
+/* ---------- nav ---------- */
+nav{position:fixed;inset:0 0 auto;z-index:60;display:flex;align-items:center;
+  justify-content:space-between;padding:16px var(--gut);
+  background:rgba(6,9,11,.82);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line)}
+.brand{font-family:var(--display);font-weight:700;letter-spacing:-.04em;font-size:18px;
+  display:flex;align-items:center;gap:10px}
+.brand svg{width:16px;height:16px;stroke:var(--draft);fill:none;stroke-width:1.2}
+.nlinks{display:flex;gap:28px;font-family:var(--mono);font-size:11px;color:var(--text-3)}
+.nlinks a{transition:color .25s}
+.nlinks a:hover{color:var(--draft)}
+@media(max-width:880px){.nlinks{display:none}}
+.btn{font-family:var(--mono);font-size:11px;padding:9px 16px;border:1px solid var(--line-2);
+  transition:background .3s,color .3s,border-color .3s;display:inline-block}
+.btn:hover{background:var(--draft);color:#06090B;border-color:var(--draft)}
+
+/* ---------- SIGNATURE: dimensioned hero ---------- */
+header{min-height:100svh;display:flex;align-items:center;padding:140px var(--gut) 90px}
+.dim-wrap{width:100%;max-width:1400px;margin-inline:auto;position:relative}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:clamp(28px,4vw,44px)}
+.eyebrow i{flex:1;height:1px;background:var(--line-2);display:block;max-width:180px}
+h1{font-family:var(--display);font-weight:600;letter-spacing:-.045em;line-height:.98;
+  font-size:clamp(40px,8.2vw,124px);max-width:13ch;position:relative}
+h1 .lit{color:var(--draft);font-weight:300;font-style:italic;
+  font-family:var(--mono);letter-spacing:-.01em;font-size:.82em}
+
+/* dimension apparatus — CSS-drawn, like a drawing's dimension callout */
+.dims{position:absolute;inset:0;pointer-events:none}
+/* extension lines rising from each end of the headline */
+.dims .ext{position:absolute;top:-34px;width:1px;height:34px;
+  background:repeating-linear-gradient(180deg,rgba(209,225,232,.34) 0 3px,transparent 3px 7px)}
+.dims .ext.l{left:0} .dims .ext.r{right:0}
+/* the horizontal dimension line + arrowheads */
+.dims .dline{position:absolute;top:-22px;left:0;right:0;height:1px;
+  background:var(--draft);opacity:.5;transform-origin:left center}
+.dims .dline::before,.dims .dline::after{content:'';position:absolute;top:-3.5px;
+  border-block:4px solid transparent;opacity:.85}
+.dims .dline::before{left:0;border-right:8px solid var(--draft)}
+.dims .dline::after{right:0;border-left:8px solid var(--draft)}
+/* vertical dimension, held clear of the type */
+.dims .vline{position:absolute;left:-30px;top:0;bottom:0;width:1px;
+  background:var(--draft);opacity:.42}
+.dims .vline::before,.dims .vline::after{content:'';position:absolute;left:-3.5px;
+  border-inline:4px solid transparent;opacity:.85}
+.dims .vline::before{top:0;border-bottom:8px solid var(--draft)}
+.dims .vline::after{bottom:0;border-top:8px solid var(--draft)}
+.dimlabel{position:absolute;font-family:var(--mono);font-size:10px;color:var(--draft);
+  background:var(--base);padding:2px 10px;white-space:nowrap;z-index:3;line-height:1.4}
+.dimlabel.top{top:-30px;left:50%;transform:translateX(-50%);
+  animation:labelIn .7s ease .95s both}
+@keyframes labelIn{from{opacity:0}to{opacity:1}}
+@media(max-width:900px){.dims,.dimlabel{display:none}}
+
+.hero-foot{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;
+  margin-top:clamp(40px,6vw,72px);padding-top:26px;border-top:1px solid var(--line)}
+.spec{display:flex;gap:clamp(22px,4vw,54px);flex-wrap:wrap}
+.spec div span{display:block}
+.spec b{font-family:var(--display);font-weight:500;font-size:clamp(20px,2.2vw,30px);
+  letter-spacing:-.03em;line-height:1.2;display:block}
+
+/* ---------- section header w/ leader line ---------- */
+.shead{padding:clamp(64px,9vw,124px) var(--gut) clamp(28px,4vw,48px)}
+.shead .row{display:flex;justify-content:space-between;align-items:flex-end;gap:44px;flex-wrap:wrap}
+.callout{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
+.callout .bub{width:26px;height:26px;border:1px solid var(--draft);border-radius:50%;
+  display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--draft);flex:none}
+.callout .ln{height:1px;background:var(--line-2);flex:1;margin-top:13px;max-width:120px}
+
+/* ---------- departments : section-view cards ---------- */
+/* 6 departments — 3×2 so the grid never leaves an empty cell */
+.depts{margin:0 var(--gut) clamp(60px,8vw,110px);
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line)}
+@media(max-width:1080px){.depts{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.depts{grid-template-columns:1fr}}
+.dcard{background:var(--base);padding:30px 26px 34px;position:relative;overflow:hidden;
+  transition:background .35s;min-height:230px;display:flex;flex-direction:column}
+.dcard:hover{background:var(--elevated)}
+/* section-view hatching, revealed on hover */
+.dcard::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;
+  transition:opacity .4s;
+  background:repeating-linear-gradient(45deg,transparent 0 7px,rgba(209,225,232,.07) 7px 8px)}
+.dcard:hover::after{opacity:1}
+.dcard .rel{position:relative;z-index:1;display:flex;flex-direction:column;height:100%}
+.dcard h3{font-family:var(--display);font-weight:600;font-size:clamp(20px,2vw,27px);
+  letter-spacing:-.03em;margin:16px 0 10px;line-height:1.1}
+.dcard p{color:var(--text-3);font-size:14px;line-height:1.5;flex:1}
+.dcard .foot{display:flex;justify-content:space-between;align-items:center;
+  margin-top:22px;padding-top:14px;border-top:1px solid var(--line)}
+.dcard .arw{transition:transform .35s;color:var(--draft);font-family:var(--mono);font-size:12px}
+.dcard:hover .arw{transform:translateX(5px)}
+
+/* ---------- roadmap : dependency chain ---------- */
+.rm{padding:0 var(--gut) clamp(60px,8vw,110px)}
+.chain{position:relative;margin-top:44px;border-left:1px solid var(--line-2);
+  padding-left:clamp(22px,4vw,52px);max-width:1080px}
+.step{position:relative;padding:0 0 40px;display:grid;
+  grid-template-columns:minmax(0,1fr) 120px;gap:24px;align-items:start}
+.step:last-child{padding-bottom:0}
+.step::before{content:'';position:absolute;left:calc(-1*clamp(22px,4vw,52px) - 4px);top:7px;
+  width:7px;height:7px;background:var(--base);border:1px solid var(--draft);
+  transform:rotate(45deg)}
+.step h4{font-family:var(--display);font-weight:600;font-size:clamp(18px,1.8vw,23px);
+  letter-spacing:-.025em;margin-bottom:7px}
+.step p{color:var(--text-3);font-size:14px;max-width:52ch}
+.step .gauge{font-family:var(--mono);font-size:10px;color:var(--text-3);text-align:right}
+.step .gauge span{display:block;height:1px;background:var(--line-2);margin-top:8px;position:relative}
+.step .gauge i{position:absolute;inset:0 auto 0 0;background:var(--draft);height:1px}
+@media(max-width:700px){.step{grid-template-columns:1fr}.step .gauge{text-align:left}}
+
+/* ---------- journal ---------- */
+.jr{padding:0 var(--gut) clamp(60px,8vw,110px)}
+.jrow{display:grid;grid-template-columns:110px 1fr 140px;gap:26px;align-items:baseline;
+  padding:24px 0;border-bottom:1px solid var(--line);transition:background .3s;
+  margin-inline:calc(-1*var(--gut));padding-inline:var(--gut)}
+.jrow:first-child{border-top:1px solid var(--line-2)}
+.jrow:hover{background:var(--elevated)}
+.jrow:hover h3{color:var(--draft)}
+.jrow h3{font-family:var(--display);font-weight:500;font-size:clamp(17px,1.9vw,24px);
+  letter-spacing:-.028em;line-height:1.25;transition:color .3s;max-width:36ch}
+.jrow .rev{font-family:var(--mono);font-size:10px;color:var(--text-3);text-align:right}
+@media(max-width:700px){.jrow{grid-template-columns:1fr;gap:8px}.jrow .rev{text-align:left}}
+
+/* ---------- live ---------- */
+.live{padding:0 var(--gut) clamp(60px,8vw,110px);display:grid;
+  grid-template-columns:1.35fr 1fr;gap:clamp(24px,4vw,54px);align-items:start}
+@media(max-width:900px){.live{grid-template-columns:1fr}}
+.viewport{aspect-ratio:16/9;border:1px solid var(--line-2);position:relative;
+  display:grid;place-items:center;background:var(--elevated);overflow:hidden}
+.viewport::before{content:'';position:absolute;inset:14px;border:1px dashed var(--line-2)}
+.crosshair{position:absolute;inset:0}
+.crosshair::before,.crosshair::after{content:'';position:absolute;background:var(--line)}
+.crosshair::before{left:50%;top:0;bottom:0;width:1px}
+.crosshair::after{top:50%;left:0;right:0;height:1px}
+.play{position:relative;width:70px;height:70px;border:1px solid var(--draft);
+  border-radius:50%;display:grid;place-items:center;background:rgba(6,9,11,.75);
+  transition:background .3s}
+.viewport:hover .play{background:var(--draft)}
+.play svg{width:16px;height:16px;fill:var(--draft);margin-left:3px;transition:fill .3s}
+.viewport:hover .play svg{fill:#06090B}
+.air{position:absolute;top:26px;left:26px;display:flex;gap:8px;align-items:center;
+  font-family:var(--mono);font-size:10px}
+.air i{width:6px;height:6px;background:#ff5540;border-radius:50%;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.2}}
+.slot{display:flex;justify-content:space-between;gap:18px;padding:15px 0;
+  border-bottom:1px solid var(--line)}
+.slot:first-of-type{border-top:1px solid var(--line-2)}
+.slot p{font-size:14px;max-width:27ch;line-height:1.4}
+.slot .mono{white-space:nowrap}
+
+/* ---------- community ---------- */
+.cm{padding:0 var(--gut) clamp(60px,8vw,110px)}
+.cm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);margin-top:44px}
+.cm-card{background:var(--base);padding:26px 24px 32px;transition:background .3s}
+.cm-card:hover{background:var(--elevated)}
+.cm-card h4{font-family:var(--display);font-weight:600;font-size:19px;
+  letter-spacing:-.025em;margin:13px 0 9px}
+.cm-card p{color:var(--text-3);font-size:13.5px;line-height:1.5}
+
+/* ---------- title block footer ---------- */
+footer{border-top:1px solid var(--line-2);padding:clamp(54px,7vw,96px) var(--gut) 0}
+.fmail{font-family:var(--display);font-weight:600;letter-spacing:-.045em;
+  font-size:clamp(26px,5.6vw,78px);line-height:1;display:inline-block;transition:color .3s}
+.fmail:hover{color:var(--draft)}
+.tblock{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-2);
+  margin-top:clamp(44px,6vw,80px);margin-inline:calc(-1*var(--gut))}
+.tcell{padding:20px var(--gut);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:7px}
+.tcell:last-child{border-right:0}
+.tcell a{font-size:14px;color:var(--text-3);transition:color .25s}
+.tcell a:hover{color:var(--text)}
+.tfoot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:16px 0;border-top:1px solid var(--line)}
+@media(max-width:760px){.tblock{grid-template-columns:repeat(2,1fr)}
+  .tcell:nth-child(2){border-right:0}}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01ms!important}
+  .dims line,.dims path{stroke-dashoffset:0!important}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="brand">
+    <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5"/><path d="M8 1.5v13M1.5 8h13"/></svg>
+    MECHANICS
+  </a>
+  <div class="nlinks">
+    <a href="#dept">Departments</a><a href="#rm">Roadmaps</a>
+    <a href="#jr">Journal</a><a href="#live">Live</a><a href="#cm">Community</a>
+  </div>
+  <a href="#" class="btn">Join the hub</a>
+</nav>
+
+<main>
+<!-- ============ HERO — dimensioned like a drawing ============ -->
+<header>
+  <div class="dim-wrap">
+    <p class="eyebrow"><span class="tick">DWG 001 · LEARNING HUB</span><i></i><span class="mono">REV 2.1 · 2026</span></p>
+
+    <div style="position:relative;display:inline-block;margin-top:46px">
+      <div class="dims" aria-hidden="true">
+        <span class="ext l"></span><span class="ext r"></span>
+        <span class="dline"></span><span class="vline"></span>
+      </div>
+      <span class="dimlabel top">1 218 STUDENTS · 41 UNIVERSITIES</span>
+      <h1>Every part has a <span class="lit">tolerance.</span> So does your understanding.</h1>
+    </div>
+
+    <div class="hero-foot">
+      <div>
+        <p class="lede">A learning hub for student engineers across automotive, motorsports, aerospace, robotics and mechatronics — built around dependency-mapped roadmaps, weekday design reviews, and honest critique of real projects.</p>
+        <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap">
+          <a href="#dept" class="btn">Open the departments</a>
+          <a href="#live" class="btn" style="border-color:var(--line)">Watch tonight's review</a>
+        </div>
+      </div>
+      <div class="spec">
+        <div><b>06</b><span class="mono">Departments</span></div>
+        <div><b>158</b><span class="mono">Modules</span></div>
+        <div><b>5 / wk</b><span class="mono">Live reviews</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ DEPARTMENTS ============ -->
+<section id="dept">
+  <div class="shead">
+    <div class="callout"><span class="bub">1</span><span class="ln"></span><span class="mono">Departments</span></div>
+    <div class="row">
+      <h2 class="h-sec">Six departments,<br>one shared vocabulary.</h2>
+      <p class="lede" style="max-width:36ch">Each is a working syllabus: the sub-disciplines, what they are for, and the order they depend on.</p>
+    </div>
+  </div>
+
+  <div class="depts">
+    <a class="dcard" href="#"><span class="rel">
+      <span class="tick">A-01</span><h3>Automotive</h3>
+      <p>Powertrain, chassis, vehicle dynamics and NVH — plus the tolerances that decide whether any of it works.</p>
+      <span class="foot"><span class="mono">24 modules</span><span class="arw">→</span></span>
+    </span></a>
+    <a class="dcard" href="#"><span class="rel">
+      <span class="tick">M-02</span><h3>Motorsports</h3>
+      <p>FSAE and Baja engineering — suspension kinematics, aero maps, race strategy, surviving scrutineering.</p>
+      <span class="foot"><span class="mono">31 modules</span><span class="arw">→</span></span>
+    </span></a>
+    <a class="dcard" href="#"><span class="rel">
+      <span class="tick">A-03</span><h3>Aerospace &amp; Aviation</h3>
+      <p>Propulsion, airframe structures and flight mechanics, taught with certification thinking from day one.</p>
+      <span class="foot"><span class="mono">19 modules</span><span class="arw">→</span></span>
+    </span></a>
+    <a class="dcard" href="#"><span class="rel">
+      <span class="tick">R-04</span><h3>Robotics</h3>
+      <p>Forward and inverse kinematics, actuation, control loops, ROS 2 and manipulator design.</p>
+      <span class="foot"><span class="mono">27 modules</span><span class="arw">→</span></span>
+    </span></a>
+    <a class="dcard" href="#"><span class="rel">
+      <span class="tick">X-05</span><h3>Mechatronics</h3>
+      <p>Where wiring meets metal — embedded firmware, sensor fusion, PCB layout and motor control.</p>
+      <span class="foot"><span class="mono">22 modules</span><span class="arw">→</span></span>
+    </span></a>
+    <a class="dcard" href="#"><span class="rel">
+      <span class="tick">S-06</span><h3>Software &amp; CAD</h3>
+      <p>SolidWorks, CATIA, Fusion 360, ANSYS, MATLAB and KiCad — taught as one pipeline, not six menu tours.</p>
+      <span class="foot"><span class="mono">35 modules</span><span class="arw">→</span></span>
+    </span></a>
+  </div>
+</section>
+
+<!-- ============ ROADMAPS ============ -->
+<section id="rm">
+  <div class="shead">
+    <div class="callout"><span class="bub">2</span><span class="ln"></span><span class="mono">Roadmaps</span></div>
+    <div class="row">
+      <h2 class="h-sec">Nothing unlocks<br>until the thing<br>beneath it holds.</h2>
+      <p class="lede" style="max-width:36ch">Skill trees with real dependencies. Tick a node when you can do it unaided — progress follows your account.</p>
+    </div>
+  </div>
+  <div class="rm">
+    <div class="chain">
+      <div class="step">
+        <div><span class="tick">STAGE 01 · FUNDAMENTALS</span>
+          <h4>Statics &amp; materials</h4>
+          <p>Free-body diagrams, stress–strain behaviour, failure criteria. Nothing downstream survives without it.</p></div>
+        <div class="gauge">COMPLETE 100%<span><i style="width:100%"></i></span></div>
+      </div>
+      <div class="step">
+        <div><span class="tick">STAGE 02 · TOOLING</span>
+          <h4>Parametric CAD</h4>
+          <p>Sketch discipline, feature trees that survive an edit, and GD&amp;T a machinist can actually read.</p></div>
+        <div class="gauge">IN PROGRESS 72%<span><i style="width:72%"></i></span></div>
+      </div>
+      <div class="step">
+        <div><span class="tick">STAGE 03 · ANALYSIS</span>
+          <h4>FEA &amp; CFD</h4>
+          <p>Meshing, boundary conditions, and the step everyone skips — validating the result against something real.</p></div>
+        <div class="gauge">IN PROGRESS 38%<span><i style="width:38%"></i></span></div>
+      </div>
+      <div class="step">
+        <div><span class="tick">STAGE 04 · APPLICATION</span>
+          <h4>Vehicle dynamics</h4>
+          <p>Load transfer, roll centres, tyre data and damper tuning — where the maths meets the lap time.</p></div>
+        <div class="gauge">LOCKED 9%<span><i style="width:9%"></i></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNAL ============ -->
+<section id="jr">
+  <div class="shead">
+    <div class="callout"><span class="bub">3</span><span class="ln"></span><span class="mono">Journal</span></div>
+    <div class="row">
+      <h2 class="h-sec">Journal</h2>
+      <p class="lede" style="max-width:36ch">News, teardowns and working notes — written by people who have built the thing.</p>
+    </div>
+  </div>
+  <div class="jr">
+    <a class="jrow" href="#"><span class="mono">18.07.2026</span>
+      <h3>Why FSAE teams keep getting anti-dive geometry wrong</h3>
+      <span class="rev">MOTORSPORTS</span></a>
+    <a class="jrow" href="#"><span class="mono">11.07.2026</span>
+      <h3>Reading a wind tunnel run: what C<sub>L</sub>/C<sub>D</sub> actually tells you</h3>
+      <span class="rev">AEROSPACE</span></a>
+    <a class="jrow" href="#"><span class="mono">02.07.2026</span>
+      <h3>Filing a provisional patent from an Indian college lab</h3>
+      <span class="rev">IPR</span></a>
+    <a class="jrow" href="#"><span class="mono">24.06.2026</span>
+      <h3>Functional PETG on the Bambu X1C: settings that survive load</h3>
+      <span class="rev">MANUFACTURING</span></a>
+    <a class="jrow" href="#"><span class="mono">15.06.2026</span>
+      <h3>A feature tree that survives the third design review</h3>
+      <span class="rev">SOFTWARE &amp; CAD</span></a>
+  </div>
+</section>
+
+<!-- ============ LIVE ============ -->
+<section id="live">
+  <div class="shead">
+    <div class="callout"><span class="bub">4</span><span class="ln"></span><span class="mono">Live</span></div>
+    <div class="row">
+      <h2 class="h-sec">Design reviews,<br>five nights a week.</h2>
+      <p class="lede" style="max-width:36ch">Bring your assembly. Somebody who has shipped one will tell you what is wrong with it.</p>
+    </div>
+  </div>
+  <div class="live">
+    <div class="viewport">
+      <span class="crosshair"></span>
+      <span class="air"><i></i>LIVE · TUE 20:30 IST</span>
+      <span class="play"><svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5z"/></svg></span>
+    </div>
+    <div>
+      <p class="mono" style="margin-bottom:14px">Upcoming this week</p>
+      <div class="slot"><p>Monocoque layup schedule — review with IIT Bombay Racing</p><span class="mono">TUE 20:30</span></div>
+      <div class="slot"><p>Meshing a manifold without lying to yourself</p><span class="mono">WED 20:30</span></div>
+      <div class="slot"><p>Open floor — bring a drawing, get it torn apart</p><span class="mono">THU 21:00</span></div>
+      <div class="slot"><p>Guest — patent drafting for student inventors</p><span class="mono">FRI 19:00</span></div>
+      <div style="margin-top:26px"><a href="#" class="btn">Full schedule</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMUNITY ============ -->
+<section id="cm">
+  <div class="shead">
+    <div class="callout"><span class="bub">5</span><span class="ln"></span><span class="mono">Community</span></div>
+    <div class="row">
+      <h2 class="h-sec">Post the project.<br>Take the criticism.</h2>
+      <p class="lede" style="max-width:36ch">Threads for work in progress, plus the guidance nobody hands you: how to file, and how to publish.</p>
+    </div>
+  </div>
+  <div class="cm">
+    <div class="cm-grid">
+      <div class="cm-card"><span class="tick">PROJECTS</span><h4>Build threads</h4>
+        <p>Post the assembly, the analysis and the failure. Answers come from people on other teams hitting the same wall.</p></div>
+      <div class="cm-card"><span class="tick">IPR</span><h4>Patents &amp; filing</h4>
+        <p>Provisional versus complete, what your college TTO actually does, and the timeline you are already behind on.</p></div>
+      <div class="cm-card"><span class="tick">RESEARCH</span><h4>Writing papers</h4>
+        <p>Structure, choosing a venue, and surviving reviewer two — with worked examples from published students.</p></div>
+      <div class="cm-card"><span class="tick">TEAMS</span><h4>Cross-university</h4>
+        <p>FSAE, Baja, Aero Design and Robocon teams comparing notes across 41 universities in India and abroad.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER — literal drawing title block ============ -->
+<footer>
+  <p class="mono" style="margin-bottom:16px">Start something</p>
+  <a href="mailto:hello@mechanics.dev" class="fmail">hello@mechanics.dev</a>
+
+  <div class="tblock">
+    <div class="tcell"><span class="tick">LEARN</span>
+      <a href="#dept">Departments</a><a href="#rm">Roadmaps</a><a href="#">Software &amp; CAD</a></div>
+    <div class="tcell"><span class="tick">READ</span>
+      <a href="#jr">Journal</a><a href="#">News</a><a href="#">Reviews — soon</a></div>
+    <div class="tcell"><span class="tick">TAKE PART</span>
+      <a href="#live">Live</a><a href="#cm">Community</a><a href="#">Webinars — soon</a></div>
+    <div class="tcell"><span class="tick">ELSEWHERE</span>
+      <a href="#">YouTube</a><a href="#">Instagram</a><a href="#">LinkedIn</a></div>
+  </div>
+  <div class="tfoot">
+    <span class="mono">DRAWN — MECHANICS</span>
+    <span class="mono">SCALE 1:1</span>
+    <span class="mono">SHEET 01 OF 01</span>
+    <span class="mono">© 2026</span>
+  </div>
+</footer>
+
+<script>
+/* draw the dimension apparatus in on load — the one orchestrated moment */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var ease='cubic-bezier(.22,1,.36,1)',
+      seq=[
+        ['.dims .ext.l','scaleY(0)','top center',  60],
+        ['.dims .ext.r','scaleY(0)','top center', 140],
+        ['.dims .dline','scaleX(0)','left center',260],
+        ['.dims .vline','scaleY(0)','top center', 420]
+      ];
+  seq.forEach(function(s){
+    var el=document.querySelector(s[0]); if(!el) return;
+    el.style.transform=s[1];
+    el.style.transformOrigin=s[2];
+    setTimeout(function(){
+      el.style.transition='transform .9s '+ease;
+      el.style.transform='none';
+    },s[3]);
+  });
+})();
+</script>
+</body>
+</html>
